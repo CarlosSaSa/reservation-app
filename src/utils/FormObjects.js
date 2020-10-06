@@ -5,3 +5,8 @@ export const RegisterForm = {
     password: '',
     repeatPassword: ''
 }
+
+export const LoginFormObject = {
+    correo: '',
+    password: ''
+}

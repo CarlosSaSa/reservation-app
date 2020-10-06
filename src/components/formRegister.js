@@ -5,24 +5,11 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { useStyleForm } from '../styles/styleTabs';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
-export const FormRegister = (props) => {
-
-  const { handleChange, values: Values, handleSubmit, isValid, dirty, errors, touched, handleBlur } = props;
-  console.log(props);
+export const FormRegister = ( { handleChange, values, handleSubmit, isValid, dirty, errors, touched, handleBlur } ) => {
 
   const classesForm = useStyleForm();
-  const [values, setValues] = useState({ password: '', showPassword: false });
-  const [repeatPassword, setRepeatPassword] = useState({ repeatPassword: '', showRepitPassword: false });
-
-  const handleShowPassword = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-    handleChange(event);
-  }
-
-  const handleShowRepeatPassword = (prop) => (event) => {
-    setRepeatPassword({ ...repeatPassword, [prop]: event.target.value });
-    handleChange(event);
-  }
+  const [showPassword, setShowPassword ] = useState(false);
+  const [ showRepeatPassword, setRepeatPassword] = useState(false);
 
   return (
     // con onSubmit evitacion la propagacion del evento es decir que se recarge de nuevo la pagina 
@@ -39,7 +26,7 @@ export const FormRegister = (props) => {
             name="nombre"
             onBlur = { handleBlur }
             onChange={handleChange}
-            value ={ Values.nombre }
+            value ={ values.nombre }
             error = { touched.nombre && errors.nombre ? true : false }
             helperText={ touched.nombre && errors.nombre && errors.nombre }
           />
@@ -55,7 +42,7 @@ export const FormRegister = (props) => {
             name="apellido"
             onChange={handleChange}
             onBlur = { handleBlur }
-            value = { Values.apellido }
+            value = { values.apellido }
             error = { touched.apellido && errors.apellido ? true : false  }
             helperText={ touched.apellido && errors.apellido && errors.apellido }
           />
@@ -69,7 +56,7 @@ export const FormRegister = (props) => {
             multiline
             margin="none"
             name="correo"
-            value = { Values.correo }
+            value = { values.correo }
             onChange={handleChange}
             onBlur = { handleBlur }
             error = { touched.correo && errors.correo ? true: false }
@@ -81,21 +68,13 @@ export const FormRegister = (props) => {
             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
             <Input
               id="standard-adornment-password"
-              type={values.showPassword ? 'text' : 'password'}
-              value={Values.password}
+              type={ showPassword ? 'text' : 'password'}
+              value={ values.password }
               name="password"
-              onChange={handleShowPassword('password')}
+              onChange={ handleChange }
               onBlur = { handleBlur }
               endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setValues({ ...values, showPassword: !values.showPassword })}
-                    onMouseDown={(e) => e.preventDefault()}
-                  >
-                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
+                <IconRegister setshowPassword = { setShowPassword } showPassword = { showPassword } />
               }
             />
             { touched.password && errors.password && <FormHelperText> { errors.password } </FormHelperText> }
@@ -103,24 +82,16 @@ export const FormRegister = (props) => {
         </Grid>
         <Grid container item xs={12} justify="center">
           <FormControl fullWidth className={classesForm.espacio} error = { touched.repeatPassword && errors.repeatPassword ? true: false }>
-            <InputLabel htmlFor="standard-adornment-repeatpassword">Repeat Password </InputLabel>
+            <InputLabel htmlFor="standard-adornment-repeatpassword"> Confirmación de contraseña </InputLabel>
             <Input
               id="standard-adornment-repeatpassword"
-              type={repeatPassword.showRepitPassword ? 'text' : 'password'}
-              value={Values.repeatPassword}
+              type={ showRepeatPassword ? 'text' : 'password'}
+              value={ values.repeatPassword }
               name="repeatPassword"
               onBlur = { handleBlur }
-              onChange={handleShowRepeatPassword('repeatPassword')}
+              onChange={ handleChange }
               endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setRepeatPassword({ ...repeatPassword, showRepitPassword: !repeatPassword.showRepitPassword })}
-                    onMouseDown={(e) => e.preventDefault()}
-                  >
-                    {repeatPassword.showRepitPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
+                <IconRegister setshowPassword = { setRepeatPassword } showPassword = { showRepeatPassword } />
               }
             />
             {touched.repeatPassword && errors.repeatPassword && <FormHelperText> { errors.repeatPassword } </FormHelperText> }
@@ -140,5 +111,19 @@ export const FormRegister = (props) => {
         </Grid>
       </Grid>
     </form>
+  )
+}
+
+const IconRegister = ({ setshowPassword, showPassword }) => {
+  return (
+    <InputAdornment position="end">
+    <IconButton
+      aria-label="toggle password visibility"
+      onClick={() => setshowPassword( !showPassword ) }
+      onMouseDown={(e) => e.preventDefault()}
+    >
+      { showPassword ? <Visibility /> : <VisibilityOff />}
+    </IconButton>
+  </InputAdornment>
   )
 }

@@ -8,3 +8,9 @@ export const SchemaRegister = Yup.object().shape({
     repeatPassword: Yup.string().oneOf([ Yup.ref('password'), null ], 'Las contraseñas deben coincider').required('Debe escribir la confirmación de la contraseña')
 });
 
+// validacion para el login
+export const SchemaLogin = Yup.object().shape({
+    correo: Yup.string().email('Debe ser un correo válido')
+            .required('Este campo es obligatorio'),
+    password: Yup.string().required('La contraseña es requerida')
+})

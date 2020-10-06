@@ -3,8 +3,9 @@ import { useAppBar } from '../../styles/styleTabs';
 import { AppBar, Box, Tab, Tabs } from '@material-ui/core';
 import { FormRegister } from '../formRegister';
 import { Formik } from 'formik';
-import { RegisterForm } from '../../utils/FormObjects';
-import { SchemaRegister } from '../../utils/SchemasForm';
+import { RegisterForm, LoginFormObject } from '../../utils/FormObjects';
+import { SchemaRegister, SchemaLogin } from '../../utils/SchemasForm';
+import { LoginForm } from '../Login/loginForm';
 
 
 export const AppBarLeft = () => {
@@ -17,9 +18,15 @@ export const AppBarLeft = () => {
     };
 
     // Unicamente se ejecuta cuando el formulario es valido
-    const onSubmit = (field, actions) => {
+    const onSubmitRegister = (field, actions) => {
         console.log(field);
         actions.setSubmitting(false);
+    }
+
+    // Cuando el formulario sea valido
+    const onSubmitLogin = ( field, actions ) => {
+        console.log(field);
+        actions.setSubmitting(false)
     }
 
     return (
@@ -31,12 +38,18 @@ export const AppBarLeft = () => {
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0}>
+                <Formik
+                    initialValues = { LoginFormObject }
+                    validationSchema = { SchemaLogin }
+                    onSubmit = { onSubmitLogin }
+                    children = { (props) => <LoginForm { ...props } /> }
+                     />
             </TabPanel>
             <TabPanel value={value} index={1}>
                <Formik
                     initialValues = { RegisterForm }
                     validationSchema = { SchemaRegister }
-                    onSubmit = { onSubmit }  
+                    onSubmit = { onSubmitRegister }  
                     children = { props => <FormRegister {...props} /> }
                 />
             </TabPanel>
