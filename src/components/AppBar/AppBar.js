@@ -2,6 +2,10 @@ import React, { Fragment, useState } from 'react';
 import { useAppBar } from '../../styles/styleTabs';
 import { AppBar, Box, Tab, Tabs } from '@material-ui/core';
 import { FormRegister } from '../formRegister';
+import { Formik } from 'formik';
+import { RegisterForm } from '../../utils/FormObjects';
+import { SchemaRegister } from '../../utils/SchemasForm';
+
 
 export const AppBarLeft = () => {
 
@@ -11,6 +15,12 @@ export const AppBarLeft = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    // Unicamente se ejecuta cuando el formulario es valido
+    const onSubmit = (field, actions) => {
+        console.log(field);
+        actions.setSubmitting(false);
+    }
 
     return (
         <Fragment>
@@ -23,7 +33,12 @@ export const AppBarLeft = () => {
             <TabPanel value={value} index={0}>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <FormRegister />
+               <Formik
+                    initialValues = { RegisterForm }
+                    validationSchema = { SchemaRegister }
+                    onSubmit = { onSubmit }  
+                    children = { props => <FormRegister {...props} /> }
+                />
             </TabPanel>
         </Fragment>
     )

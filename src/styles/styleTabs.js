@@ -30,5 +30,10 @@ export const useStyleForm = makeStyles((theme) => ({
         [theme.breakpoints.down("xs")] : {
             marginBottom: '5px'
         }
+    },
+
+    boton: {
+        textAlign: 'center'
     }
+
 }))

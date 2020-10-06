@@ -1,11 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 import logo from "../assets/img/logo.jpg"
 
-
 export const useHeader = makeStyles( (theme) => ({
 
     header: {
-        height: '100vh',
+        height: '800px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -17,6 +16,7 @@ export const useHeader = makeStyles( (theme) => ({
         width: '80%',
         background: '#fff',
         borderRadius: '29px 29px 29px 29px',
+        position: 'relative'
     },
 
     logo: {
