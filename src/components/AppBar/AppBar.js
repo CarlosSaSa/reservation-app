@@ -6,26 +6,40 @@ import { Formik } from 'formik';
 import { RegisterForm, LoginFormObject } from '../../utils/FormObjects';
 import { SchemaRegister, SchemaLogin } from '../../utils/SchemasForm';
 import { LoginForm } from '../Login/loginForm';
-
+import { RegisterFetch } from '../../utils/fetch/autenticacion';
+import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { startLogin } from '../../actions/authActions';
 
 export const AppBarLeft = () => {
 
     const appBarClasses = useAppBar();
     const [value, setValue] = useState(0);
 
+    // para actualizar el state
+    const dispatch = useDispatch();
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     // Unicamente se ejecuta cuando el formulario es valido
-    const onSubmitRegister = (field, actions) => {
-        console.log(field);
+    const onSubmitRegister = async (field, actions) => {
+        // field son todos los values de los campos del formulario
+        const resp = await RegisterFetch( field );
+        Swal.fire({
+            icon: !resp.Usuario? 'error': 'success',
+            titleText: `${resp.mensaje}`,
+        })
+        actions.resetForm();
         actions.setSubmitting(false);
     }
 
     // Cuando el formulario sea valido
-    const onSubmitLogin = ( field, actions ) => {
-        console.log(field);
+    const onSubmitLogin = async ( field, actions ) => {
+        // field son las etiquetas que corresponden al formulario
+        dispatch( startLogin( field ) );
+        actions.resetForm();
         actions.setSubmitting(false)
     }
 
@@ -43,7 +57,7 @@ export const AppBarLeft = () => {
                     validationSchema = { SchemaLogin }
                     onSubmit = { onSubmitLogin }
                     children = { (props) => <LoginForm { ...props } /> }
-                     />
+                />
             </TabPanel>
             <TabPanel value={value} index={1}>
                <Formik

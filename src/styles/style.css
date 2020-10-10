@@ -3,3 +3,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.swal2-title {
+    font-weight: 300 !important
+}

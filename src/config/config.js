@@ -1,0 +1,2 @@
+// URL para le peticion del servidor
+export const URL = 'http://localhost:8080';
