@@ -8,12 +8,9 @@ import { LoginFetch } from "../utils/fetch/autenticacion";
 import Swal from 'sweetalert2';
 
 // Payload es un objeto con las mismas caracteristicas del state
-export const Login = ( payload ) => {
-    return {
-        type: types.Login,
-        payload
-    }
-}
+export const Login = ( payload ) => ({ type: types.Login, payload  });
+
+export const Logout = () => ({ type: types.Logout });
 
 // Funcion para ejecutar el login, esto es una operacion asincrona
 // body: Objecto con los campos a enviar al back

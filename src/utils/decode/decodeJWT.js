@@ -9,6 +9,7 @@ export const decodeToken = ( token ) => {
         const decodeToken = jwt_decode(token);
         return decodeToken;
     } catch (error) {
-        return error;
+        // es un error al decodificar el token y por lo tanto enviamos null
+        return null;
     }
 }

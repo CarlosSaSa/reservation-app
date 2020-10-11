@@ -6,11 +6,12 @@ import { store } from './store/store';
 // store
 
 function App() {
+
   return (
-    <Provider store={ store }>
+    <Provider store={store}>
       <AppRouter />
     </Provider>
-    
+
   );
 }
 

@@ -1,3 +1,4 @@
 export const types = {
-    Login: 'IsLogged'
+    Login: 'IsLogged',
+    Logout: 'Logout'
 }

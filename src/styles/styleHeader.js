@@ -1,5 +1,4 @@
 import { makeStyles } from "@material-ui/core/styles";
-import logo from "../assets/img/logo.jpg"
 
 export const useHeader = makeStyles( (theme) => ({
 
@@ -20,7 +19,7 @@ export const useHeader = makeStyles( (theme) => ({
     },
 
     logo: {
-        backgroundImage: `url(${logo})`,
+        backgroundImage: 'url(/static/images/logo.jpg)',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center center',
         backgroundSize: 'cover',

@@ -23,6 +23,12 @@ export const AuthReducer = ( state = UserInitial, actions ) => {
                 ...actions.payload,
                 isLogged: true 
             }
+        
+        case types.Logout:
+            return {
+                ...state, 
+                ...UserInitial
+            }
         default:
             return state;
     }
