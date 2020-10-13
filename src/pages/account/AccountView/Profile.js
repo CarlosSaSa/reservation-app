@@ -27,7 +27,6 @@ const useStyles = makeStyles(() => ({
 const Profile = ({ className, ...rest }) => {
 
   const { nombre  } = useSelector(state => state.auth);
-
   const classes = useStyles();
 
   return (
