@@ -6,27 +6,50 @@ import React, { useEffect } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Avatar, Box, Divider, Drawer, Hidden, List, Typography, makeStyles } from '@material-ui/core';
-import { BarChart as BarChartIcon, LogOut as LogoutIcon, User as UserIcon } from 'react-feather';
+import HistoryIcon from '@material-ui/icons/History';
+import PersonIcon from '@material-ui/icons/Person';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HomeWorkIcon from '@material-ui/icons/HomeWork';
+
 import NavItem from './NavItem';
 import { useSelector } from 'react-redux';
+
+const Icons = [ HistoryIcon, PersonIcon, ExitToAppIcon, HomeWorkIcon ];
 
 // elementos del menu que son mostrados en el sidebar
 const items = [
   {
     href: '/home/dashboard/horarios',
-    icon: BarChartIcon,
+    icon: 'HistoryIcon',
     title: 'Ver los horarios'
   },
   {
     href: '/home/dashboard/account',
-    icon: UserIcon,
+    icon: 'PersonIcon',
     title: 'Mi perfil'
   },
   {
-    icon: LogoutIcon,
+    icon: 'ExitToAppIcon',
     title: 'Cerrar sesión'
+  },
+  {
+    icon: 'HomeWorkIcon',
+    title: 'Ver los salones',
+    array: [
+      { nombreSalon: 'A01'  },
+      { nombreSalon: 'A02'  },
+      { nombreSalon: 'A03'  },
+      { nombreSalon: 'A04'  },
+      { nombreSalon: 'A05'  },
+      { nombreSalon: 'A06'  },
+    ]
   }
 ];
+
+const itemsMod = items.map((item) => {
+    item.icon = Icons.find( icon => icon.displayName === item.icon )
+    return item;
+});
 
 const useStyles = makeStyles(() => ({
   mobileDrawer: {
@@ -94,12 +117,13 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       <Divider />
       <Box p={2}>
         <List>
-          {items.map((item) => (
+          {itemsMod.map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
               title={item.title}
               icon={item.icon}
+              array = { item.array }
             />
           ))}
         </List>

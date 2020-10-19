@@ -3,17 +3,21 @@
  */
 
 
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
   Button,
+  Collapse,
+  List,
   ListItem,
   makeStyles
 } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { Logout } from '../../../actions/authActions';
+import SpellcheckIcon from '@material-ui/icons/Spellcheck';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -44,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     '& $icon': {
       color: theme.palette.primary.main
     }
+  },
+  nested: {
+    paddingLeft: theme.spacing(4)
   }
 }));
 
@@ -52,23 +59,39 @@ const NavItem = ({
   href,
   icon: Icon,
   title,
+  array,
   ...rest
 }) => {
+  const classes = useStyles();
+
+  return (
+    !array ? (
+      <ListItem
+        className={clsx(classes.item, className)}
+        disableGutters
+        {...rest}
+      >
+        <ButtonsItems href={href} Icon={Icon} title={title} />
+      </ListItem>
+    ) :
+      <SubItems clase={className} Icon={Icon} title={title} array={array} />
+
+  );
+};
+
+const ButtonsItems = ({ href, Icon, title }) => {
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const startLogout = () => {
     localStorage.clear();
-    dispatch( Logout() );   
+    dispatch(Logout());
   }
 
-  return (
-    <ListItem
-      className={clsx(classes.item, className)}
-      disableGutters
-      {...rest}
-    >
 
+  return (
+    <Fragment >
       {
         href ?
           <Button activeClassName={classes.active} className={classes.button} component={RouterLink} to={href} >
@@ -82,7 +105,7 @@ const NavItem = ({
               {title}
             </span>
           </Button> :
-          <Button className={classes.button} onClick = { startLogout  } >
+          <Button className={classes.button} onClick={startLogout} >
             {Icon && (
               <Icon
                 className={classes.icon}
@@ -94,9 +117,60 @@ const NavItem = ({
             </span>
           </Button>
       }
-    </ListItem>
-  );
-};
+    </Fragment>
+  )
+
+}
+
+const SubItems = ({ clase, Icon, title, array }) => {
+
+  const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Fragment >
+      <ListItem
+        className={clsx(classes.item, clase)}
+        disableGutters
+      >
+        <Button className={classes.button} onClick={() => setOpen(!open)} >
+          {Icon && (
+            <Icon
+              className={classes.icon}
+              size="20"
+            />
+          )}
+          <span className={classes.title}>
+            {title}
+          </span>
+          {open ? <ExpandLess /> : <ExpandMore />}
+        </Button>
+      </ListItem>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          {
+            array.map((item) => (
+              <ListItem disableGutters className={classes.nested} key={ item.nombreSalon }>
+                <Button className={classes.button} activeClassName={classes.active} component={ RouterLink } to={ `/home/dashboard/salones/${item.nombreSalon}` } >
+                  <SpellcheckIcon
+                    className={classes.icon}
+                    size="20"
+                  />
+                  <span className={classes.title}>
+                    { item.nombreSalon }
+                  </span>
+                </Button>
+              </ListItem>
+            ))
+          }
+        </List>
+      </Collapse>
+
+    </Fragment>
+  )
+
+}
+
 
 NavItem.propTypes = {
   className: PropTypes.string,
