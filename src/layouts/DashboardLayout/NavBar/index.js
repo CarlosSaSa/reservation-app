@@ -13,6 +13,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 
 import NavItem from './NavItem';
 import { useSelector } from 'react-redux';
+import { getAllClassRoom } from '../../../utils/fetch/user';
 
 const Icons = [ HistoryIcon, PersonIcon, ExitToAppIcon, HomeWorkIcon ];
 
@@ -81,6 +82,12 @@ const NavBar = ({ onMobileClose, openMobile }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
+
+  useEffect(() => {
+    getAllClassRoom().then( data =>{
+      itemsMod[3].array = data.Salones; 
+    }).catch(error => console.log(error));
+  }, [])
 
   const content = (
     <Box

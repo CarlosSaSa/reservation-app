@@ -48,8 +48,8 @@ export const AppRouter = () => {
                 {/* <Route path="home/dashboard" element={ isLogged ?  <Dashboard /> : <Navigate to="/home" />  } /> */}
                 {/* <Route path="home/dashboard" element={  <Dashboard />   } > */}
                 <Route path="home/dashboard" element={isLogged ? <Dashboard /> : <Navigate to="/home" />} >
+                    <Route path="/" element={ <CalendarApp /> } />
                     <Route path="/account" element={<AccountView />} />
-                    <Route path="/horarios" element={ <CalendarApp /> } />
                     <Route path="/salones/:id" element={ <Salon /> } />
                 </Route>
                 <Route path="*" element={<Navigate to="/home" replace={true} />} />

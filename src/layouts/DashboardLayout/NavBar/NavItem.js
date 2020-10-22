@@ -150,8 +150,8 @@ const SubItems = ({ clase, Icon, title, array }) => {
         <List component="div" disablePadding>
           {
             array.map((item) => (
-              <ListItem disableGutters className={classes.nested} key={ item.nombreSalon }>
-                <Button className={classes.button} activeClassName={classes.active} component={ RouterLink } to={ `/home/dashboard/salones/${item.nombreSalon}` } >
+              <ListItem disableGutters className={classes.nested} key={ item._id }>
+                <Button className={classes.button} activeClassName={classes.active} component={ RouterLink } to={ `/home/dashboard/salones/${item._id}` } >
                   <SpellcheckIcon
                     className={classes.icon}
                     size="20"

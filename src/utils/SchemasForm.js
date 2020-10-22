@@ -14,3 +14,10 @@ export const SchemaLogin = Yup.object().shape({
             .required('Este campo es obligatorio'),
     password: Yup.string().required('La contraseña es requerida')
 })
+
+// Validacion para los campos de insercion de fechas
+export const SchemaDate = Yup.object().shape({
+    fecha_inicio: Yup.string().required('Este campo es requerido'),
+    fecha_fin: Yup.string().required('La fecha de fin es obligatorio'),
+    salon: Yup.string().required('El salon es obligatorio')
+})
