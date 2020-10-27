@@ -4,11 +4,8 @@ import { getAllReservatios } from '../../utils/fetch/user';
 import Page from '../../components/dashboard/Page';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableFooter from '@material-ui/core/TableFooter';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
 import MUIDataTable from "mui-datatables";
+import { customFooter } from '../../components/custom/customFooter';
 
 
 
@@ -53,7 +50,7 @@ const columns = [
     {
         name: 'usuario.correo',
         label: 'Correo'
-    }
+    },
 ];
 
 
@@ -85,28 +82,6 @@ export const CalendarApp = () => {
             setHorarios({ data: [], isLoading: false });
             return error;
         }
-    }
-
-
-    const customFooter = (count, page, rowsPerPage, changeRowsPerPage, changePage, textLabels) => {
-        return (
-            <TableFooter>
-                <TableRow>
-                    <TableCell>
-                        <TablePagination
-                            component="div"
-                            count={-1}
-                            page={page}
-                            rowsPerPage={rowsPerPage}
-                            rowsPerPageOptions={[]}
-                            onChangePage={(_, number) => changePage(number)}
-                            labelRowsPerPage="Registros por página"
-                            labelDisplayedRows={({ from, to, count, page }) => `Pagina: ${page} con ${to} registros`}
-                        />
-                    </TableCell>
-                </TableRow>
-            </TableFooter>
-        )
     }
 
 

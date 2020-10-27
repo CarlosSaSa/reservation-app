@@ -10,7 +10,8 @@ import { types } from "../types/types";
      nombre: '',
      apellido: '',
      correo: '',
-     isLogged: false
+     isLogged: false,
+     isLoading: false
  }
 
 // Un reducer no es mas que una funcion pura 
@@ -21,7 +22,8 @@ export const AuthReducer = ( state = UserInitial, actions ) => {
             return {
                 ...state,
                 ...actions.payload,
-                isLogged: true 
+                isLogged: true,
+                isLoading: false
             }
         
         case types.Logout:
@@ -29,6 +31,12 @@ export const AuthReducer = ( state = UserInitial, actions ) => {
                 ...state, 
                 ...UserInitial
             }
+        case types.Loading:
+            return {
+                ...state,
+                isLoading: actions.payload
+            }
+
         default:
             return state;
     }

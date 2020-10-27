@@ -1,4 +1,5 @@
 export const types = {
     Login: 'IsLogged',
-    Logout: 'Logout'
+    Logout: 'Logout',
+    Loading: 'Loading'
 }

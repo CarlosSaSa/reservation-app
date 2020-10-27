@@ -9,6 +9,7 @@ import { decodeToken } from '../utils/decode/decodeJWT'
 import { Login, Logout } from '../actions/authActions'
 import { CalendarApp } from '../pages/calendarView/CalendarApp'
 import { Salon } from '../pages/Salon/Salon'
+import { Horarios } from '../pages/Horario/Horarios'
 
 export const AppRouter = () => {
 
@@ -50,6 +51,7 @@ export const AppRouter = () => {
                 <Route path="home/dashboard" element={isLogged ? <Dashboard /> : <Navigate to="/home" />} >
                     <Route path="/" element={ <CalendarApp /> } />
                     <Route path="/account" element={<AccountView />} />
+                    <Route path="/mishorarios" element={ <Horarios /> } />
                     <Route path="/salones/:id" element={ <Salon /> } />
                 </Route>
                 <Route path="*" element={<Navigate to="/home" replace={true} />} />

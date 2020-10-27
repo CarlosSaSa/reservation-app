@@ -1,13 +1,16 @@
 import { Button, FormControl, FormHelperText, Grid, IconButton, Input, InputAdornment, InputLabel, TextField } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import { useSelector } from "react-redux";
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import React, { useState } from 'react';
 import { LoginStyles } from '../../styles/styleLogin';
 
-export const LoginForm = ({ dirty, errors, handleBlur, handleChange, handleSubmit, isValid, touched, values }) => {
+export const LoginForm = ({ errors, handleBlur, handleChange, handleSubmit, isValid, touched, values }) => {
 
     const [showPassword, setShowPassword] = useState(false);
     const loginStyles = LoginStyles();
+
+    const { isLoading } = useSelector(state => state.auth)
 
     return (
         <form onSubmit={handleSubmit} >
@@ -46,7 +49,7 @@ export const LoginForm = ({ dirty, errors, handleBlur, handleChange, handleSubmi
                         variant="contained"
                         color="primary"
                         size="large"
-                        disabled={!(isValid && dirty)}
+                        disabled={ isLoading }
                         startIcon={< PersonPinIcon />}
                     >
                         Iniciar Sesión

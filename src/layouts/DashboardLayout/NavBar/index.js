@@ -10,12 +10,13 @@ import HistoryIcon from '@material-ui/icons/History';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import NavItem from './NavItem';
 import { useSelector } from 'react-redux';
 import { getAllClassRoom } from '../../../utils/fetch/user';
 
-const Icons = [ HistoryIcon, PersonIcon, ExitToAppIcon, HomeWorkIcon ];
+const Icons = [ HistoryIcon, PersonIcon, ExitToAppIcon, HomeWorkIcon, AccessTimeIcon ];
 
 // elementos del menu que son mostrados en el sidebar
 const items = [
@@ -30,21 +31,19 @@ const items = [
     title: 'Mi perfil'
   },
   {
+    href: '/home/dashboard/mishorarios',
+    icon: 'AccessTimeIcon',
+    title: 'Mis horarios'
+  },
+  {
     icon: 'ExitToAppIcon',
     title: 'Cerrar sesión'
   },
   {
     icon: 'HomeWorkIcon',
     title: 'Ver los salones',
-    array: [
-      { nombreSalon: 'A01'  },
-      { nombreSalon: 'A02'  },
-      { nombreSalon: 'A03'  },
-      { nombreSalon: 'A04'  },
-      { nombreSalon: 'A05'  },
-      { nombreSalon: 'A06'  },
-    ]
-  }
+    array: []
+  },
 ];
 
 const itemsMod = items.map((item) => {
@@ -85,7 +84,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
 
   useEffect(() => {
     getAllClassRoom().then( data =>{
-      itemsMod[3].array = data.Salones; 
+      itemsMod[4].array = data.Salones; 
     }).catch(error => console.log(error));
   }, [])
 

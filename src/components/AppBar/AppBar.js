@@ -32,15 +32,16 @@ export const AppBarLeft = () => {
             titleText: `${resp.mensaje}`,
         })
         actions.resetForm();
-        actions.setSubmitting(false);
+        // actions.setSubmitting(false);
     }
 
     // Cuando el formulario sea valido
-    const onSubmitLogin = async ( field, actions ) => {
+    // async
+    const onSubmitLogin = ( field, actions ) => {
         // field son las etiquetas que corresponden al formulario
-        dispatch( startLogin( field ) );
         actions.resetForm();
-        actions.setSubmitting(false)
+        actions.setSubmitting(false);
+        dispatch( startLogin( field ) );
     }
 
     return (
