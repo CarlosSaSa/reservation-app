@@ -29,11 +29,22 @@ export const Horarios = () => {
 
     useEffect(() => {
         // obtenemos el token
-        getReservationPersonal().then(data => setData(data)).catch(error => setData({ mensaje: '', Reservaciones: [] }));
+        getReservationPersonal().then(data => {
+            setData(data)
+            console.log('data del then', data);
+        }).catch( error => {
+            setData({ mensaje: '', Reservaciones: [], ok: true })
+        });
     }, []);
 
     // efecto para revisar cuando los datos ha cambiado
     useEffect(() => {
+
+        // if( data === undefined ) {
+        //     setData({ mensaje: '' , Reservaciones: [], ok: true });
+        //     return;
+        // }
+
         // es un 401 entonces abrimos el modal para cerrar sesion
         if (!data.ok) {
             setOpenModal({ open: true, children: <LogoutModal setOpenModal={setOpenModal} /> })
@@ -125,7 +136,7 @@ export const Horarios = () => {
             <Container maxWidth="lg">
                 <Grid container >
                     <Grid item xs={12} >
-                        <MuiDataTable title={"Mis horarios"} columns={columns} data={data.Reservaciones} options={options} />
+                        <MuiDataTable title={"Mis horarios"} columns={columns} data={  !data?.Reservaciones ? []: data.Reservaciones  } options={options} />
                         <Modal openModal={openModal} />
                         <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'right' }} open={openSnackBar.open} autoHideDuration={6000} onClose={handleClose}>
                             <Alert onClose={handleClose} severity={!openSnackBar.mensaje.ReservationUpdated ? "error" : "success"}>

@@ -131,10 +131,10 @@ export const getReservationPersonal = async ( pagina=1, limite=10 ) => {
         } else {
             respuesta = { ...data, ok: true };
         }
-        return Promise.resolve(respuesta);
+        return respuesta;
     } catch (error) {
-        Promise.reject(error);
-        // throw new Error('error', error);
+        // Promise.reject(error);
+        throw new Error('error', error);
     }
 
 }
